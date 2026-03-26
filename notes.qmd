@@ -106,7 +106,7 @@ Rendering takes roughly 60–120 seconds.
 <video id="tnb-video" controls playsinline></video>
 
 <script>
-const API_URL = "https://manim-tnb-api.onrender.com/render"; // update after deploy
+const API_URL = "https://my-site-3737.onrender.com"; // update after deploy
 
 function splitComponents(raw) {
   const parts = [];
