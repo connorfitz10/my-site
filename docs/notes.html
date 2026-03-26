@@ -190,6 +190,7 @@ window.Quarto = {
   <li><a href="#key-properties" id="toc-key-properties" class="nav-link" data-scroll-target="#key-properties">Key properties</a></li>
   <li><a href="#visualisation" id="toc-visualisation" class="nav-link" data-scroll-target="#visualisation">Visualisation</a></li>
   <li><a href="#worked-example-gaussian" id="toc-worked-example-gaussian" class="nav-link" data-scroll-target="#worked-example-gaussian">Worked example — Gaussian</a></li>
+  <li><a href="#interactive-tnb-frame-animation" id="toc-interactive-tnb-frame-animation" class="nav-link" data-scroll-target="#interactive-tnb-frame-animation">Interactive TNB Frame Animation</a></li>
   <li><a href="#code-block-optional" id="toc-code-block-optional" class="nav-link" data-scroll-target="#code-block-optional">Code block (optional)</a></li>
   </ul>
 </nav>
@@ -308,10 +309,104 @@ Note
 \hat{f}(\xi) = \frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\pi \xi^2}
 \]</span> —</p>
 </section>
+<section id="interactive-tnb-frame-animation" class="level2">
+<h2 class="anchored" data-anchor-id="interactive-tnb-frame-animation">Interactive TNB Frame Animation</h2>
+<p>Enter a parametric curve <span class="math inline">\(\vec{r}(t) = (x(t),\, y(t),\, z(t))\)</span> as three comma-separated expressions in <span class="math inline">\(t\)</span>, then click <strong>Render</strong>. Rendering takes roughly 60–120 seconds.</p>
+<div class="{=html}">
+<style>
+  #tnb-form      { display:flex; gap:.5rem; flex-wrap:wrap; align-items:center; margin-bottom:1rem; }
+  #curve-input   { flex:1 1 320px; font-family:monospace; font-size:.95rem;
+                   padding:.4rem .6rem; border:1px solid #ccc; border-radius:4px; }
+  #render-btn    { padding:.4rem 1.1rem; background:#0d6efd; color:#fff;
+                   border:none; border-radius:4px; cursor:pointer; font-size:.95rem; }
+  #render-btn:disabled { opacity:.55; cursor:not-allowed; }
+  #tnb-spinner   { display:none; align-items:center; gap:.6rem; color:#555; margin-bottom:.75rem; }
+  #tnb-spinner svg { animation:spin 1s linear infinite; }
+  @keyframes spin  { to { transform:rotate(360deg); } }
+  #tnb-error     { display:none; color:#c0392b; background:#fdf2f2;
+                   border:1px solid #e8b4b4; border-radius:4px; padding:.6rem .9rem;
+                   margin-bottom:.75rem; white-space:pre-wrap; font-size:.88rem; }
+  #tnb-video     { display:none; width:100%; max-width:760px;
+                   border-radius:6px; box-shadow:0 2px 8px rgba(0,0,0,.15); }
+</style>
+<div id="tnb-form">
+<p><input id="curve-input" type="text" value="2*cos(3*t), 2*sin(t), 2*cos(2*t)" placeholder="x(t), y(t), z(t)"> <button id="render-btn" onclick="renderTNB()">Render</button></p>
+</div>
+<div id="tnb-spinner">
+<p><svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"> <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83
+             M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path> </svg> <span>Rendering… this may take 60–120 seconds.</span></p>
+</div>
+<div id="tnb-error">
+
+</div>
+<video id="tnb-video" controls="" playsinline="">
+</video>
+<script>
+const API_URL = "https://my-site-3737.onrender.com"; // update after deploy
+
+function splitComponents(raw) {
+  const parts = [];
+  let depth = 0, cur = "";
+  for (const ch of raw) {
+    if      (ch === "(")             { depth++; cur += ch; }
+    else if (ch === ")")             { depth--; cur += ch; }
+    else if (ch === "," && depth === 0) { parts.push(cur.trim()); cur = ""; }
+    else                             { cur += ch; }
+  }
+  if (cur.trim()) parts.push(cur.trim());
+  return parts;
+}
+
+async function renderTNB() {
+  const btn     = document.getElementById("render-btn");
+  const spinner = document.getElementById("tnb-spinner");
+  const errDiv  = document.getElementById("tnb-error");
+  const video   = document.getElementById("tnb-video");
+  const raw     = document.getElementById("curve-input").value.trim();
+
+  errDiv.style.display  = "none";
+  errDiv.textContent    = "";
+  video.style.display   = "none";
+  video.src             = "";
+  btn.disabled          = true;
+  spinner.style.display = "flex";
+
+  try {
+    const components = splitComponents(raw);
+    if (components.length !== 3)
+      throw new Error(`Expected 3 comma-separated components, got ${components.length}.`);
+
+    const resp = await fetch(API_URL, {
+      method:  "POST",
+      headers: { "Content-Type": "application/json" },
+      body:    JSON.stringify({ components }),
+    });
+
+    if (!resp.ok) {
+      let msg = `Server error ${resp.status}`;
+      try { const j = await resp.json(); msg = j.detail ?? msg; } catch (_) {}
+      throw new Error(msg);
+    }
+
+    const blob = await resp.blob();
+    video.src           = URL.createObjectURL(blob);
+    video.style.display = "block";
+  } catch (err) {
+    errDiv.textContent  = String(err.message ?? err);
+    errDiv.style.display = "block";
+  } finally {
+    btn.disabled          = false;
+    spinner.style.display = "none";
+  }
+}
+</script>
+</div>
+<hr>
+</section>
 <section id="code-block-optional" class="level2">
 <h2 class="anchored" data-anchor-id="code-block-optional">Code block (optional)</h2>
 <p>You can also include executable Python code cells if you have Jupyter installed:</p>
-<div id="7f4573f9" class="cell" data-execution_count="1">
+<div id="94b2f2a2" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>

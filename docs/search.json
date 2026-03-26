@@ -35,6 +35,13 @@
     "text": "Worked example — Gaussian\nFor \\(f(t) = e^{-\\pi t^2}\\), the Fourier transform is its own Gaussian:\n\\[\n\\hat{f}(\\xi) = e^{-\\pi \\xi^2}\n\\]\nThis is the only function (up to scaling) that is an eigenfunction of the Fourier transform with eigenvalue 1.\nIf we want it to have normalization one, we then need to define: \\[\n\\hat{f}(\\xi) = \\frac{1}{\\sqrt{2 \\pi \\sigma^2}} e^{-\\pi \\xi^2}\n\\] —"
   },
   {
+    "objectID": "notes.html#interactive-tnb-frame-animation",
+    "href": "notes.html#interactive-tnb-frame-animation",
+    "title": "Notes — Fourier Transform",
+    "section": "Interactive TNB Frame Animation",
+    "text": "Interactive TNB Frame Animation\nEnter a parametric curve \\(\\vec{r}(t) = (x(t),\\, y(t),\\, z(t))\\) as three comma-separated expressions in \\(t\\), then click Render. Rendering takes roughly 60–120 seconds.\n\n\n\n Render\n\n\n   Rendering… this may take 60–120 seconds."
+  },
+  {
     "objectID": "notes.html#code-block-optional",
     "href": "notes.html#code-block-optional",
     "title": "Notes — Fourier Transform",
