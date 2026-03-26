@@ -1,0 +1,7 @@
+---
+title: "About"
+---
+
+This site is built with [Quarto](https://quarto.org) and hosted on GitHub Pages.
+
+It's a place for math notes, Manim animations, and anything else worth writing down.

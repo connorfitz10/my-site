@@ -1,0 +1,79 @@
+---
+title: "Notes — Fourier Transform"
+date: 2026-03-26
+categories: [math, signal-processing]
+---
+
+## Definition
+
+The continuous Fourier transform of a function $f(t)$ is:
+
+$$
+\hat{f}(\xi) = \int_{-\infty}^{\infty} f(t)\, e^{-2\pi i \xi t}\, dt
+$$
+
+And the inverse:
+
+$$
+f(t) = \int_{-\infty}^{\infty} \hat{f}(\xi)\, e^{2\pi i \xi t}\, d\xi
+$$
+
+---
+
+## Key properties
+
+| Property | Time domain | Frequency domain |
+|----------|-------------|------------------|
+| Linearity | $\alpha f + \beta g$ | $\alpha \hat{f} + \beta \hat{g}$ |
+| Time shift | $f(t - t_0)$ | $e^{-2\pi i \xi t_0} \hat{f}(\xi)$ |
+| Convolution | $(f * g)(t)$ | $\hat{f}(\xi) \cdot \hat{g}(\xi)$ |
+| Parseval | $\int |f|^2\, dt$ | $\int |\hat{f}|^2\, d\xi$ |
+
+---
+
+## Visualisation
+
+The animation below (rendered in Manim) shows how a square wave decomposes
+into a sum of sinusoids as more Fourier terms are added:
+
+![Fourier series decomposition](images/fourier.gif){fig-align="center" width="80%"}
+
+::: {.callout-note}
+Replace `images/fourier.gif` with your own Manim output. Any `.gif` or `.mp4`
+in the `images/` folder works — no extra config needed.
+:::
+
+---
+
+## Worked example — Gaussian
+
+For $f(t) = e^{-\pi t^2}$, the Fourier transform is its own Gaussian:
+
+$$
+\hat{f}(\xi) = e^{-\pi \xi^2}
+$$
+
+This is the only function (up to scaling) that is an eigenfunction of the
+Fourier transform with eigenvalue 1.
+
+---
+
+## Code block (optional)
+
+You can also include executable Python code cells if you have Jupyter installed:
+
+```{python}
+#| eval: false          # remove this line to actually run the cell
+import numpy as np
+import matplotlib.pyplot as plt
+
+t = np.linspace(-3, 3, 1000)
+f = np.exp(-np.pi * t**2)
+xi = np.fft.fftfreq(len(t), d=t[1]-t[0])
+fhat = np.fft.fft(f) * (t[1]-t[0])
+
+plt.plot(np.fft.fftshift(xi), np.abs(np.fft.fftshift(fhat)))
+plt.xlabel(r"$\xi$")
+plt.title("Magnitude spectrum")
+plt.show()
+```

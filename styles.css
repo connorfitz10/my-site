@@ -1,0 +1,25 @@
+/* Optional tweaks — delete anything you don't want */
+
+/* Slightly wider content area */
+.quarto-container {
+  max-width: 860px;
+}
+
+/* Make math a touch larger */
+.math.display {
+  font-size: 1.05em;
+}
+
+/* GIFs / images: rounded corners and a soft shadow */
+img {
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+}
+
+/* Inline code styling */
+code {
+  background: #f4f4f4;
+  padding: 0.15em 0.35em;
+  border-radius: 4px;
+  font-size: 0.9em;
+}

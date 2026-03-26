@@ -1,0 +1,30 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "cd my-site",
+    "section": "",
+    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site This is where I would type math symbols. For example:"
+  },
+  {
+    "objectID": "about.html#markdown",
+    "href": "about.html#markdown",
+    "title": "About",
+    "section": "",
+    "text": "About this site This is where I would type math symbols. For example:"
+  },
+  {
+    "objectID": "about.html#equation",
+    "href": "about.html#equation",
+    "title": "About",
+    "section": "Equation",
+    "text": "Equation\n\\[\nE=mc^2\n\\] Now I am typing more things below this equation and I can instert equations in like \\(x=5\\) and things below \\[\na\\cdot 5=5\\cdot a\n\\]"
+  }
+]
