@@ -67,7 +67,7 @@
     "href": "index.html#display-math",
     "title": "Home",
     "section": "Display math",
-    "text": "Display math\nMaxwell’s equations in differential form:\n\\[\n\\nabla \\cdot \\mathbf{E} = \\frac{\\rho}{\\varepsilon_0}\n\\]\n\\[\n\\nabla \\times \\mathbf{B} = \\mu_0 \\mathbf{J} + \\mu_0 \\varepsilon_0 \\frac{\\partial \\mathbf{E}}{\\partial t}\n\\]"
+    "text": "Display math\nMaxwell’s equations in differential form:\n\\[\n\\nabla \\cdot \\mathbf{E} = \\frac{\\rho}{\\varepsilon_0}\n\\]\n\\[\n\\nabla \\times \\mathbf{B} = \\mu_0 \\mathbf{J} + \\mu_0 \\varepsilon_0 \\frac{\\partial \\mathbf{E}}{\\partial t}\n\\]\n\\[\n\\nabla \\cdot \\mathbf{B}=0\n\\] \\[\n\\nabla \\times \\mathbf{E}=-\\frac{\\partial \\mathbf{B}}{dt}\n\\]"
   },
   {
     "objectID": "index.html#embedding-a-gif",

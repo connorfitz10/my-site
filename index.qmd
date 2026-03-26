@@ -26,6 +26,13 @@ $$
 \nabla \times \mathbf{B} = \mu_0 \mathbf{J} + \mu_0 \varepsilon_0 \frac{\partial \mathbf{E}}{\partial t}
 $$
 
+$$
+\nabla \cdot \mathbf{B}=0
+$$
+$$
+\nabla \times \mathbf{E}=-\frac{\partial \mathbf{B}}{dt}
+$$
+
 ---
 
 ## Embedding a GIF
