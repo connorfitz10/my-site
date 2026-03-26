@@ -39,7 +39,7 @@
     "href": "notes.html#interactive-tnb-frame-animation",
     "title": "Notes — Fourier Transform",
     "section": "Interactive TNB Frame Animation",
-    "text": "Interactive TNB Frame Animation\nEnter a parametric curve \\(\\vec{r}(t) = (x(t),\\, y(t),\\, z(t))\\) as three comma-separated expressions in \\(t\\), then click Plot. Use the slider to move the TNB frame along the curve.\n\n\n\n\n\n Plot\n\n\n\n\n\nt =  0.00"
+    "text": "Interactive TNB Frame Animation\nEnter a parametric curve \\(\\vec{r}(t) = (x(t),\\, y(t),\\, z(t))\\) as three comma-separated expressions in \\(t\\), then click Plot. Use the slider to move the TNB frame along the curve.\n\n\n\n\n\n Plot\n\n\n\n\n\n▶ Play  0.00"
   },
   {
     "objectID": "notes.html#code-block-optional",
