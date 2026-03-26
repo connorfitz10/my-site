@@ -80,6 +80,8 @@ Use the slider to move the TNB frame along the curve.
                     border:none; border-radius:4px; cursor:pointer; font-size:.9rem; }
   #tnb-err        { color:#c0392b; font-size:.88rem; margin-bottom:.5rem; display:none; }
   #tnb-slider-row { display:none; align-items:center; gap:.8rem; margin-bottom:.5rem; }
+  #tnb-play-btn   { padding:.3rem .85rem; background:#198754; color:#fff;
+                    border:none; border-radius:4px; cursor:pointer; font-size:.9rem; white-space:nowrap; }
   #tnb-t-slider   { flex:1; }
   #tnb-t-label    { font-family:monospace; min-width:4ch; }
   #tnb-plot       { width:100%; height:520px; }
@@ -93,39 +95,42 @@ Use the slider to move the TNB frame along the curve.
 </div>
 <div id="tnb-err"></div>
 <div id="tnb-slider-row">
-  <span>t =</span>
+  <button id="tnb-play-btn" onclick="togglePlay()">&#9654; Play</button>
   <input id="tnb-t-slider" type="range" min="0" max="1000" value="0"
-         oninput="updateFrame(this.value)">
+         oninput="updateFrame(+this.value)">
   <span id="tnb-t-label">0.00</span>
 </div>
 <div id="tnb-plot"></div>
 
 <script>
 const TWO_PI = 2 * Math.PI;
-let _rFunc = null;
+let _rFunc      = null;
+let _scale      = 0.5;
+let _axisLayout = {};          // fixed axis ranges, set once at plot time
+let _rafId      = null;        // requestAnimationFrame handle
+let _playStart  = null;        // timestamp when play began
+let _playOffset = 0;           // slider value (0–1000) when play began
 
 /* ── math helpers ── */
-function norm3(v)       { return Math.sqrt(v[0]**2 + v[1]**2 + v[2]**2); }
-function normalize3(v)  { const n = norm3(v); return n > 1e-12 ? v.map(x => x/n) : [1,0,0]; }
-function cross3(a, b)   {
+function norm3(v)      { return Math.sqrt(v[0]**2 + v[1]**2 + v[2]**2); }
+function normalize3(v) { const n = norm3(v); return n > 1e-12 ? v.map(x => x/n) : [1,0,0]; }
+function cross3(a, b)  {
   return [a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]];
 }
 function splitComps(raw) {
   const parts = []; let depth = 0, cur = "";
   for (const ch of raw) {
-    if      (ch === "(")              { depth++; cur += ch; }
-    else if (ch === ")")              { depth--; cur += ch; }
-    else if (ch === "," && depth === 0) { parts.push(cur.trim()); cur = ""; }
-    else                              { cur += ch; }
+    if      (ch === "(")               { depth++; cur += ch; }
+    else if (ch === ")")               { depth--; cur += ch; }
+    else if (ch === "," && depth === 0){ parts.push(cur.trim()); cur = ""; }
+    else                               { cur += ch; }
   }
   if (cur.trim()) parts.push(cur.trim());
   return parts;
 }
 
 /* ── numerical TNB frame ── */
-function makeR(comps) {
-  return t => comps.map(expr => math.evaluate(expr, { t }));
-}
+function makeR(comps) { return t => comps.map(expr => math.evaluate(expr, { t })); }
 function compT(r, t, h=1e-5) {
   const r1 = r(t+h), r0 = r(t-h);
   return normalize3(r1.map((v,i) => (v - r0[i]) / (2*h)));
@@ -136,29 +141,26 @@ function compTNB(r, t, h=1e-5) {
   const T0 = compT(r, t-h, h);
   const dT = T1.map((v,i) => (v - T0[i]) / (2*h));
   const Nv = normalize3(dT);
-  const Bv = cross3(T, Nv);
-  return { T, N: Nv, B: Bv };
+  return { T, N: Nv, B: cross3(T, Nv) };
 }
 
 /* ── Plotly helpers ── */
-function arrowTrace(p, v, scale, color, name) {
-  const end = p.map((x,i) => x + v[i]*scale);
-  return {
-    type:'scatter3d', mode:'lines+markers',
-    x:[p[0],end[0]], y:[p[1],end[1]], z:[p[2],end[2]],
-    line:{color, width:6}, marker:{size:[0,6], color},
-    name, showlegend:true
-  };
+function arrowTrace(p, v, sc, color, name) {
+  const end = p.map((x,i) => x + v[i]*sc);
+  return { type:'scatter3d', mode:'lines+markers',
+           x:[p[0],end[0]], y:[p[1],end[1]], z:[p[2],end[2]],
+           line:{color, width:6}, marker:{size:[0,6], color},
+           name, showlegend:true };
 }
-
-function autoScale(pts) {
-  const flat = pts.flat();
-  const span = Math.max(...flat) - Math.min(...flat);
-  return Math.max(0.2, span * 0.12);
+function axisRange(vals, pad=0.15) {
+  const mn = Math.min(...vals), mx = Math.max(...vals);
+  const sp = (mx - mn) || 1;
+  return [mn - sp*pad, mx + sp*pad];
 }
 
 /* ── main plot function ── */
 function plotTNB() {
+  stopPlay();
   const errEl = document.getElementById('tnb-err');
   const raw   = document.getElementById('tnb-curve-in').value.trim();
   errEl.style.display = 'none';
@@ -167,73 +169,124 @@ function plotTNB() {
   try {
     comps = splitComps(raw);
     if (comps.length !== 3) throw new Error('Need exactly 3 comma-separated components');
-    const r = makeR(comps);
-    r(0); r(0.1);   // test parse
+    const r = makeR(comps); r(0); r(0.1);
     _rFunc = r;
   } catch(e) {
-    errEl.textContent   = 'Error: ' + e.message;
+    errEl.textContent = 'Error: ' + e.message;
     errEl.style.display = 'block';
     return;
   }
 
+  // Sample curve + all vector endpoints to compute fixed axis ranges
   const nPts = 300;
   const ts   = Array.from({length: nPts}, (_, i) => TWO_PI * i / (nPts - 1));
   const pts  = ts.map(t => _rFunc(t));
-  const scale = autoScale(pts);
+  const flat = pts.flat();
+  const span = Math.max(...flat) - Math.min(...flat);
+  _scale = Math.max(0.2, span * 0.12);
 
-  const curveTrace = {
-    type:'scatter3d', mode:'lines',
-    x: pts.map(p=>p[0]), y: pts.map(p=>p[1]), z: pts.map(p=>p[2]),
-    line:{color:'red', width:3}, name:'r(t)', showlegend:true
+  // Include vector tip positions in range calculation
+  const allX = [], allY = [], allZ = [];
+  ts.filter((_,i) => i % 10 === 0).forEach(t => {
+    const p = _rFunc(t);
+    const {T, N, B} = compTNB(_rFunc, t);
+    [T, N, B].forEach(v => {
+      allX.push(p[0], p[0]+v[0]*_scale);
+      allY.push(p[1], p[1]+v[1]*_scale);
+      allZ.push(p[2], p[2]+v[2]*_scale);
+    });
+  });
+
+  // Lock axis ranges for the entire animation
+  _axisLayout = {
+    uirevision: 'locked',
+    margin: {l:0, r:0, t:20, b:0},
+    legend: {x:0, y:1},
+    scene: {
+      aspectmode: 'cube',
+      xaxis: { range: axisRange(allX) },
+      yaxis: { range: axisRange(allY) },
+      zaxis: { range: axisRange(allZ) },
+    }
   };
 
   const p0 = _rFunc(0);
   const {T, N, B} = compTNB(_rFunc, 0);
 
   Plotly.react('tnb-plot', [
-    curveTrace,
-    arrowTrace(p0, T, scale, 'green',  'T'),
-    arrowTrace(p0, N, scale, 'blue',   'N'),
-    arrowTrace(p0, B, scale, 'purple', 'B'),
-    { type:'scatter3d', mode:'markers',
-      x:[p0[0]], y:[p0[1]], z:[p0[2]],
+    { type:'scatter3d', mode:'lines',
+      x: pts.map(p=>p[0]), y: pts.map(p=>p[1]), z: pts.map(p=>p[2]),
+      line:{color:'red', width:3}, name:'r(t)', showlegend:true },
+    arrowTrace(p0, T, _scale, 'green',  'T'),
+    arrowTrace(p0, N, _scale, 'blue',   'N'),
+    arrowTrace(p0, B, _scale, 'purple', 'B'),
+    { type:'scatter3d', mode:'markers', x:[p0[0]], y:[p0[1]], z:[p0[2]],
       marker:{size:5, color:'orange'}, showlegend:false }
-  ], { margin:{l:0,r:0,t:20,b:0}, scene:{aspectmode:'data'}, legend:{x:0,y:1} });
+  ], _axisLayout);
 
-  const sliderRow = document.getElementById('tnb-slider-row');
-  sliderRow.style.display = 'flex';
+  document.getElementById('tnb-slider-row').style.display = 'flex';
   document.getElementById('tnb-t-slider').value = 0;
   document.getElementById('tnb-t-label').textContent = '0.00';
 }
 
-/* ── slider update ── */
+/* ── frame update (called by slider and animation loop) ── */
 function updateFrame(val) {
   if (!_rFunc) return;
-  const t  = TWO_PI * val / 1000;
+  const slider = document.getElementById('tnb-t-slider');
+  slider.value = val;
+  const t = TWO_PI * val / 1000;
   document.getElementById('tnb-t-label').textContent = t.toFixed(2);
 
-  const p      = _rFunc(t);
+  const p = _rFunc(t);
   const {T, N, B} = compTNB(_rFunc, t);
-  const scale  = parseFloat(document.getElementById('tnb-plot')._fullLayout
-                   ?.scene?.camera ? 0 : 0) || 0.3;
+  const Tend = p.map((x,i) => x + T[i]*_scale);
+  const Nend = p.map((x,i) => x + N[i]*_scale);
+  const Bend = p.map((x,i) => x + B[i]*_scale);
 
-  // Re-read scale from first arrow trace end-point distance (robust)
-  const layout = document.getElementById('tnb-plot')._fullData;
-  const sc = layout ? norm3([
-    layout[1].x[1]-layout[1].x[0],
-    layout[1].y[1]-layout[1].y[0],
-    layout[1].z[1]-layout[1].z[0]
-  ]) : 0.5;
+  Plotly.update('tnb-plot',
+    { x:[[p[0],Tend[0]],[p[0],Nend[0]],[p[0],Bend[0]],[p[0]]],
+      y:[[p[1],Tend[1]],[p[1],Nend[1]],[p[1],Bend[1]],[p[1]]],
+      z:[[p[2],Tend[2]],[p[2],Nend[2]],[p[2],Bend[2]],[p[2]]] },
+    { 'scene.xaxis.range': _axisLayout.scene.xaxis.range,
+      'scene.yaxis.range': _axisLayout.scene.yaxis.range,
+      'scene.zaxis.range': _axisLayout.scene.zaxis.range },
+    [1, 2, 3, 4]
+  );
+}
 
-  const Tend = p.map((x,i) => x + T[i]*sc);
-  const Nend = p.map((x,i) => x + N[i]*sc);
-  const Bend = p.map((x,i) => x + B[i]*sc);
+/* ── play / pause ── */
+const PLAY_DURATION = 10000; // 10 seconds
 
-  Plotly.update('tnb-plot', {
-    x: [[p[0],Tend[0]], [p[0],Nend[0]], [p[0],Bend[0]], [p[0]]],
-    y: [[p[1],Tend[1]], [p[1],Nend[1]], [p[1],Bend[1]], [p[1]]],
-    z: [[p[2],Tend[2]], [p[2],Nend[2]], [p[2],Bend[2]], [p[2]]]
-  }, {}, [1, 2, 3, 4]);
+function togglePlay() {
+  if (_rafId) { stopPlay(); } else { startPlay(); }
+}
+function startPlay() {
+  if (!_rFunc) return;
+  _playOffset = +document.getElementById('tnb-t-slider').value;
+  // If at the end, restart from beginning
+  if (_playOffset >= 1000) _playOffset = 0;
+  _playStart = null;
+  document.getElementById('tnb-play-btn').textContent = '⏸ Pause';
+  _rafId = requestAnimationFrame(animStep);
+}
+function stopPlay() {
+  if (_rafId) { cancelAnimationFrame(_rafId); _rafId = null; }
+  const btn = document.getElementById('tnb-play-btn');
+  if (btn) btn.textContent = '▶ Play';
+}
+function animStep(timestamp) {
+  if (!_playStart) _playStart = timestamp;
+  const elapsed = timestamp - _playStart;
+  // Map elapsed time to remaining slider distance
+  const remaining = 1000 - _playOffset;
+  const progress  = Math.min(elapsed / (PLAY_DURATION * remaining / 1000), 1);
+  const val = Math.round(_playOffset + remaining * progress);
+  updateFrame(val);
+  if (val < 1000) {
+    _rafId = requestAnimationFrame(animStep);
+  } else {
+    stopPlay();
+  }
 }
 </script>
 :::
