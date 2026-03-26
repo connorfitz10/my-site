@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: manim-tnb-api
+    runtime: docker
+    dockerfilePath: ./manim-api/Dockerfile
+    dockerContext: ./manim-api
+    plan: standard
+    envVars:
+      - key: PORT
+        value: 8000
+    healthCheckPath: /docs
+    autoDeploy: true
