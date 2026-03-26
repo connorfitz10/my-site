@@ -32,7 +32,7 @@
     "href": "notes.html#worked-example-gaussian",
     "title": "Notes — Fourier Transform",
     "section": "Worked example — Gaussian",
-    "text": "Worked example — Gaussian\nFor \\(f(t) = e^{-\\pi t^2}\\), the Fourier transform is its own Gaussian:\n\\[\n\\hat{f}(\\xi) = e^{-\\pi \\xi^2}\n\\]\nThis is the only function (up to scaling) that is an eigenfunction of the Fourier transform with eigenvalue 1."
+    "text": "Worked example — Gaussian\nFor \\(f(t) = e^{-\\pi t^2}\\), the Fourier transform is its own Gaussian:\n\\[\n\\hat{f}(\\xi) = e^{-\\pi \\xi^2}\n\\]\nThis is the only function (up to scaling) that is an eigenfunction of the Fourier transform with eigenvalue 1.\nIf we want it to have normalization one, we then need to define: \\[\n\\hat{f}(\\xi) = \\frac{1}{\\sqrt{2 \\pi \\sigma^2}} e^{-\\pi \\xi^2}\n\\] —"
   },
   {
     "objectID": "notes.html#code-block-optional",

@@ -56,6 +56,10 @@ $$
 This is the only function (up to scaling) that is an eigenfunction of the
 Fourier transform with eigenvalue 1.
 
+If we want it to have normalization one, we then need to define:
+$$
+\hat{f}(\xi) = \frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\pi \xi^2}
+$$
 ---
 
 ## Code block (optional)
