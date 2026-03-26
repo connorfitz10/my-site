@@ -1,54 +1,5 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Home",
-    "section": "",
-    "text": "Welcome to my site. Here you’ll find math notes, animations, and write-ups."
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "This site is built with Quarto and hosted on GitHub Pages.\nIt’s a place for math notes, Manim animations, and anything else worth writing down."
-  },
-  {
-    "objectID": "about.html#markdown",
-    "href": "about.html#markdown",
-    "title": "About",
-    "section": "",
-    "text": "About this site This is where I would type math symbols. For example:"
-  },
-  {
-    "objectID": "about.html#equation",
-    "href": "about.html#equation",
-    "title": "About",
-    "section": "Equation",
-    "text": "Equation\n\\[\nE=mc^2\n\\] Now I am typing more things below this equation and I can instert equations in like \\(x=5\\) and things below \\[\na\\cdot 5=5\\cdot a\n\\]"
-  },
-  {
-    "objectID": "index.html#quick-example-inline-latex",
-    "href": "index.html#quick-example-inline-latex",
-    "title": "Home",
-    "section": "Quick example — inline LaTeX",
-    "text": "Quick example — inline LaTeX\nThe quadratic formula is \\(x = \\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}\\).\nEuler’s identity: \\(e^{i\\pi} + 1 = 0\\)"
-  },
-  {
-    "objectID": "index.html#display-math",
-    "href": "index.html#display-math",
-    "title": "Home",
-    "section": "Display math",
-    "text": "Display math\nMaxwell’s equations in differential form:\n\\[\n\\nabla \\cdot \\mathbf{E} = \\frac{\\rho}{\\varepsilon_0}\n\\]\n\\[\n\\nabla \\times \\mathbf{B} = \\mu_0 \\mathbf{J} + \\mu_0 \\varepsilon_0 \\frac{\\partial \\mathbf{E}}{\\partial t}\n\\]"
-  },
-  {
-    "objectID": "index.html#embedding-a-gif",
-    "href": "index.html#embedding-a-gif",
-    "title": "Home",
-    "section": "Embedding a GIF",
-    "text": "Embedding a GIF\nDrop your Manim-rendered GIF into an images/ folder next to this file, then embed it like this:\n![Manim animation description](images/your-animation.gif)\nWith a caption and sizing:\n![Double pendulum simulation](images/pendulum.gif){fig-align=\"center\" width=\"70%\"}\nFor .mp4 videos use the Quarto video shortcode:"
-  },
-  {
     "objectID": "notes.html",
     "href": "notes.html",
     "title": "Notes — Fourier Transform",
@@ -89,5 +40,40 @@
     "title": "Notes — Fourier Transform",
     "section": "Code block (optional)",
     "text": "Code block (optional)\nYou can also include executable Python code cells if you have Jupyter installed:\n\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nt = np.linspace(-3, 3, 1000)\nf = np.exp(-np.pi * t**2)\nxi = np.fft.fftfreq(len(t), d=t[1]-t[0])\nfhat = np.fft.fft(f) * (t[1]-t[0])\n\nplt.plot(np.fft.fftshift(xi), np.abs(np.fft.fftshift(fhat)))\nplt.xlabel(r\"$\\xi$\")\nplt.title(\"Magnitude spectrum\")\nplt.show()"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "This site is built with Quarto and hosted on GitHub Pages.\nIt’s a place for math notes, Manim animations, and anything else worth writing down."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Home",
+    "section": "",
+    "text": "Welcome to my site. Here you’ll find math notes, animations, and write-ups."
+  },
+  {
+    "objectID": "index.html#quick-example-inline-latex",
+    "href": "index.html#quick-example-inline-latex",
+    "title": "Home",
+    "section": "Quick example — inline LaTeX",
+    "text": "Quick example — inline LaTeX\nThe quadratic formula is \\(x = \\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}\\).\nEuler’s identity: \\(e^{i\\pi} + 1 = 0\\)"
+  },
+  {
+    "objectID": "index.html#display-math",
+    "href": "index.html#display-math",
+    "title": "Home",
+    "section": "Display math",
+    "text": "Display math\nMaxwell’s equations in differential form:\n\\[\n\\nabla \\cdot \\mathbf{E} = \\frac{\\rho}{\\varepsilon_0}\n\\]\n\\[\n\\nabla \\times \\mathbf{B} = \\mu_0 \\mathbf{J} + \\mu_0 \\varepsilon_0 \\frac{\\partial \\mathbf{E}}{\\partial t}\n\\]"
+  },
+  {
+    "objectID": "index.html#embedding-a-gif",
+    "href": "index.html#embedding-a-gif",
+    "title": "Home",
+    "section": "Embedding a GIF",
+    "text": "Embedding a GIF\nDrop your Manim-rendered GIF into an images/ folder next to this file, then embed it like this:\n![Manim animation description](images/your-animation.gif)\nWith a caption and sizing:\n![Double pendulum simulation](images/pendulum.gif){fig-align=\"center\" width=\"70%\"}\nFor .mp4 videos use the Quarto video shortcode:"
   }
 ]
