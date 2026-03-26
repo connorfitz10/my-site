@@ -67,7 +67,6 @@ $$
 You can also include executable Python code cells if you have Jupyter installed:
 
 ```{python}
-#| eval: false          # remove this line to actually run the cell
 import numpy as np
 import matplotlib.pyplot as plt
 
