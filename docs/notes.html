@@ -350,14 +350,11 @@ Note
 <div id="tnb-err">
 
 </div>
-<div id="tnb-slider-row" style="flex-direction:column; align-items:stretch;">
-<button id="tnb-toggle-btn" onclick="toggleTNB()" style="align-self:flex-start;">Show T,N,B</button>
-<div style="display:flex; align-items:center; gap:.8rem;">
-<pre><code>&lt;button id="tnb-play-btn" onclick="togglePlay()"&gt;&amp;#9654; Play&lt;/button&gt;
-&lt;input id="tnb-t-slider" type="range" min="0" max="1000" value="0"
-       oninput="updateFrame(+this.value)" style="flex:1;"&gt;
-&lt;span id="tnb-t-label"&gt;0.00&lt;/span&gt;</code></pre>
+<div id="tnb-toggle-row" style="display:none; margin-bottom:.4rem;">
+<p><button id="tnb-toggle-btn" onclick="toggleTNB()">Show T,N,B</button></p>
 </div>
+<div id="tnb-slider-row">
+<p><button id="tnb-play-btn" onclick="togglePlay()">▶ Play</button> <input id="tnb-t-slider" type="range" min="0" max="1000" value="0" oninput="updateFrame(+this.value)"> <span id="tnb-t-label">0.00</span></p>
 </div>
 <div id="tnb-plot">
 
@@ -494,6 +491,7 @@ function plotTNB() {
   ], _axisLayout);
 
   document.getElementById('tnb-slider-row').style.display = 'flex';
+  document.getElementById('tnb-toggle-row').style.display = 'block';
   document.getElementById('tnb-t-slider').value = 0;
   document.getElementById('tnb-t-label').textContent = '0.00';
 
@@ -575,19 +573,19 @@ function animStep(timestamp) {
 <section id="code-block-optional" class="level2">
 <h2 class="anchored" data-anchor-id="code-block-optional">Code block (optional)</h2>
 <p>You can also include executable Python code cells if you have Jupyter installed:</p>
-<div id="4aee79ab" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">1000</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> np.exp(<span class="op">-</span>np.pi <span class="op">*</span> t<span class="op">**</span><span class="dv">2</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>xi <span class="op">=</span> np.fft.fftfreq(<span class="bu">len</span>(t), d<span class="op">=</span>t[<span class="dv">1</span>]<span class="op">-</span>t[<span class="dv">0</span>])</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>fhat <span class="op">=</span> np.fft.fft(f) <span class="op">*</span> (t[<span class="dv">1</span>]<span class="op">-</span>t[<span class="dv">0</span>])</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>plt.plot(np.fft.fftshift(xi), np.<span class="bu">abs</span>(np.fft.fftshift(fhat)))</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="vs">r"</span><span class="dv">$</span><span class="er">\</span><span class="vs">xi</span><span class="dv">$</span><span class="vs">"</span>)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Magnitude spectrum"</span>)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="64c4edc1" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">1000</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> np.exp(<span class="op">-</span>np.pi <span class="op">*</span> t<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>xi <span class="op">=</span> np.fft.fftfreq(<span class="bu">len</span>(t), d<span class="op">=</span>t[<span class="dv">1</span>]<span class="op">-</span>t[<span class="dv">0</span>])</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>fhat <span class="op">=</span> np.fft.fft(f) <span class="op">*</span> (t[<span class="dv">1</span>]<span class="op">-</span>t[<span class="dv">0</span>])</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>plt.plot(np.fft.fftshift(xi), np.<span class="bu">abs</span>(np.fft.fftshift(fhat)))</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="vs">r"</span><span class="dv">$</span><span class="er">\</span><span class="vs">xi</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Magnitude spectrum"</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
