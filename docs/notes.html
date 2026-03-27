@@ -330,7 +330,7 @@ Note
   #tnb-plot       { width:100%; height:520px; }
 </style>
 <div id="tnb-input-row">
-<p><input id="tnb-curve-in" type="text" value="2*cos(3*t), 2*sin(t), 2*cos(2*t)" placeholder="x(t), y(t), z(t)  (0 ≤ t ≤ 2π)"> <button id="tnb-plot-btn" onclick="plotTNB()">Plot</button></p>
+<p><input id="tnb-curve-in" type="text" value="2*cos(3*t), 2*sin(t), 2*cos(2*t)" placeholder="x(t), y(t), z(t)"> <label style="font-size:.9rem">a =</label> <input id="tnb-t-a" type="number" value="0" step="0.1" style="width:5rem; padding:.35rem .4rem; border:1px solid #ccc; border-radius:4px; font-size:.9rem;"> <label style="font-size:.9rem">b =</label> <input id="tnb-t-b" type="number" value="6.2832" step="0.1" style="width:5rem; padding:.35rem .4rem; border:1px solid #ccc; border-radius:4px; font-size:.9rem;"> <button id="tnb-plot-btn" onclick="plotTNB()">Plot</button></p>
 </div>
 <div id="tnb-err">
 
@@ -342,13 +342,14 @@ Note
 
 </div>
 <script>
-const TWO_PI = 2 * Math.PI;
 let _rFunc      = null;
 let _scale      = 0.5;
 let _axisLayout = {};          // fixed axis ranges, set once at plot time
 let _rafId      = null;        // requestAnimationFrame handle
 let _playStart  = null;        // timestamp when play began
 let _playOffset = 0;           // slider value (0–1000) when play began
+let _tA         = 0;           // interval start
+let _tB         = 2 * Math.PI; // interval end
 
 /* ── math helpers ── */
 function norm3(v)      { return Math.sqrt(v[0]**2 + v[1]**2 + v[2]**2); }
@@ -416,9 +417,18 @@ function plotTNB() {
     return;
   }
 
+  // Read interval
+  _tA = parseFloat(document.getElementById('tnb-t-a').value);
+  _tB = parseFloat(document.getElementById('tnb-t-b').value);
+  if (isNaN(_tA) || isNaN(_tB) || _tB <= _tA) {
+    errEl.textContent = 'Error: b must be greater than a';
+    errEl.style.display = 'block';
+    return;
+  }
+
   // Sample curve + all vector endpoints to compute fixed axis ranges
   const nPts = 300;
-  const ts   = Array.from({length: nPts}, (_, i) => TWO_PI * i / (nPts - 1));
+  const ts   = Array.from({length: nPts}, (_, i) => _tA + (_tB - _tA) * i / (nPts - 1));
   const pts  = ts.map(t => _rFunc(t));
   const flat = pts.flat();
   const span = Math.max(...flat) - Math.min(...flat);
@@ -449,8 +459,8 @@ function plotTNB() {
     }
   };
 
-  const p0 = _rFunc(0);
-  const {T, N, B} = compTNB(_rFunc, 0);
+  const p0 = _rFunc(_tA);
+  const {T, N, B} = compTNB(_rFunc, _tA);
 
   Plotly.react('tnb-plot', [
     { type:'scatter3d', mode:'lines',
@@ -473,7 +483,7 @@ function updateFrame(val) {
   if (!_rFunc) return;
   const slider = document.getElementById('tnb-t-slider');
   slider.value = val;
-  const t = TWO_PI * val / 1000;
+  const t = _tA + (_tB - _tA) * val / 1000;
   document.getElementById('tnb-t-label').textContent = t.toFixed(2);
 
   const p = _rFunc(t);
@@ -534,7 +544,7 @@ function animStep(timestamp) {
 <section id="code-block-optional" class="level2">
 <h2 class="anchored" data-anchor-id="code-block-optional">Code block (optional)</h2>
 <p>You can also include executable Python code cells if you have Jupyter installed:</p>
-<div id="71b50b58" class="cell" data-execution_count="1">
+<div id="bde925b6" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
