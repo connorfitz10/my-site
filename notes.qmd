@@ -255,7 +255,7 @@ function plotTNB() {
   document.getElementById('tnb-slider-row').style.display = 'flex';
   document.getElementById('tnb-toggle-row').style.display = 'block';
   document.getElementById('tnb-t-slider').value = 0;
-  document.getElementById('tnb-t-label').textContent = '0.00';
+  document.getElementById('tnb-t-label').textContent = _tA.toFixed(2);
 
   // Default to hidden
   _tnbVisible = false;
