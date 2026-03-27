@@ -1,8 +1,8 @@
 /* Optional tweaks — delete anything you don't want */
 
-/* Slightly wider content area */
+/* Full-width content area */
 .quarto-container {
-  max-width: 860px;
+  max-width: 1400px;
 }
 
 /* Make math a touch larger */

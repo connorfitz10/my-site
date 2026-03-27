@@ -22,8 +22,7 @@ format:
   html:
     theme: cosmo          # try: flatly, darkly, slate, solar, litera
     css: styles.css
-    toc: true             # table of contents on every page
-    toc-depth: 3
+    toc: false
     number-sections: false
     smooth-scroll: true
     highlight-style: github

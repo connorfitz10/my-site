@@ -141,7 +141,7 @@ window.Quarto = {
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -185,20 +185,7 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#definition" id="toc-definition" class="nav-link active" data-scroll-target="#definition">Definition</a></li>
-  <li><a href="#key-properties" id="toc-key-properties" class="nav-link" data-scroll-target="#key-properties">Key properties</a></li>
-  <li><a href="#visualisation" id="toc-visualisation" class="nav-link" data-scroll-target="#visualisation">Visualisation</a></li>
-  <li><a href="#worked-example-gaussian" id="toc-worked-example-gaussian" class="nav-link" data-scroll-target="#worked-example-gaussian">Worked example — Gaussian</a></li>
-  <li><a href="#interactive-tnb-frame-animation" id="toc-interactive-tnb-frame-animation" class="nav-link" data-scroll-target="#interactive-tnb-frame-animation">Interactive TNB Frame Animation</a></li>
-  <li><a href="#code-block-optional" id="toc-code-block-optional" class="nav-link" data-scroll-target="#code-block-optional">Code block (optional)</a></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -450,17 +437,10 @@ function plotTNB() {
     });
   });
 
-  // Lock axis ranges for the entire animation
   _axisLayout = {
-    uirevision: 'locked',
     margin: {l:0, r:0, t:20, b:0},
     legend: {x:0, y:1},
-    scene: {
-      aspectmode: 'cube',
-      xaxis: { range: axisRange(allX) },
-      yaxis: { range: axisRange(allY) },
-      zaxis: { range: axisRange(allZ) },
-    }
+    scene: { aspectmode: 'cube' }
   };
 
   const p0 = _rFunc(_tA);
@@ -500,10 +480,7 @@ function updateFrame(val) {
     { x:[[p[0],Tend[0]],[p[0],Nend[0]],[p[0],Bend[0]],[p[0]]],
       y:[[p[1],Tend[1]],[p[1],Nend[1]],[p[1],Bend[1]],[p[1]]],
       z:[[p[2],Tend[2]],[p[2],Nend[2]],[p[2],Bend[2]],[p[2]]] },
-    { 'scene.xaxis.range': _axisLayout.scene.xaxis.range,
-      'scene.yaxis.range': _axisLayout.scene.yaxis.range,
-      'scene.zaxis.range': _axisLayout.scene.zaxis.range },
-    [1, 2, 3, 4]
+    {}, [1, 2, 3, 4]
   );
 }
 
@@ -548,7 +525,7 @@ function animStep(timestamp) {
 <section id="code-block-optional" class="level2">
 <h2 class="anchored" data-anchor-id="code-block-optional">Code block (optional)</h2>
 <p>You can also include executable Python code cells if you have Jupyter installed:</p>
-<div id="c22883ee" class="cell" data-execution_count="1">
+<div id="b3528122" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
