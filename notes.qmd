@@ -111,12 +111,14 @@ Use the slider to move the TNB frame along the curve.
   <button id="tnb-plot-btn" onclick="plotTNB()">Plot</button>
 </div>
 <div id="tnb-err"></div>
-<div id="tnb-slider-row">
-  <button id="tnb-play-btn" onclick="togglePlay()">&#9654; Play</button>
-  <button id="tnb-toggle-btn" onclick="toggleTNB()">Hide T,N,B</button>
-  <input id="tnb-t-slider" type="range" min="0" max="1000" value="0"
-         oninput="updateFrame(+this.value)">
-  <span id="tnb-t-label">0.00</span>
+<div id="tnb-slider-row" style="flex-direction:column; align-items:stretch;">
+  <button id="tnb-toggle-btn" onclick="toggleTNB()" style="align-self:flex-start;">Show T,N,B</button>
+  <div style="display:flex; align-items:center; gap:.8rem;">
+    <button id="tnb-play-btn" onclick="togglePlay()">&#9654; Play</button>
+    <input id="tnb-t-slider" type="range" min="0" max="1000" value="0"
+           oninput="updateFrame(+this.value)" style="flex:1;">
+    <span id="tnb-t-label">0.00</span>
+  </div>
 </div>
 <div id="tnb-plot"></div>
 
@@ -254,6 +256,11 @@ function plotTNB() {
   document.getElementById('tnb-slider-row').style.display = 'flex';
   document.getElementById('tnb-t-slider').value = 0;
   document.getElementById('tnb-t-label').textContent = '0.00';
+
+  // Default to hidden
+  _tnbVisible = false;
+  Plotly.restyle('tnb-plot', { visible: false }, [1, 2, 3]);
+  document.getElementById('tnb-toggle-btn').textContent = 'Show T,N,B';
 }
 
 /* ── frame update (called by slider and animation loop) ── */
