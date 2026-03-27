@@ -20,5 +20,5 @@ Modern Physics Labratory (PHYS 20CL, Summer 2020, UCSB)
 Precalculus, Calculus I-IV, Calculus for Biology and Medicine II-III,  Introduction to Abstract Mathematics, Graduate Analysis II.
 
 ## Mentorship
-I mentored Claudio Manyari on special relativity. He presented a [poster](images/Electromagnetism and Special Relativity Claudio.pdf){target="_blank"} at the DRP conference.
+I have served as a mentor for 8 undergraduate reading projects on topics such as [C* Algebras](images/Abhi%20Poster.pdf){target="_blank"}, [Special Relativity](images/Claudio%20Poster.pdf){target="_blank"},[The Fourier Transform in Circuit Analysis](images/Selene%20Poster.pdf){target="_blank"},[The Cosmological Constant](images/Hannah%20Poster.pdf){target="_blank"},[Measure theory and the Dirac Delta function](images/Nic%20Slides.pdf){target="_blank"},[Differential Geometry](images/Yaotian%20Slides.pdf){target="_blank"},Quantum Computing, and Knot Theory.
 
