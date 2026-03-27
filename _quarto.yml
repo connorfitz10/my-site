@@ -21,7 +21,7 @@ website:
 
 format:
   html:
-    theme: sandstone        # try: flatly, darkly, slate, solar, litera
+    theme: flatly      # try: flatly, darkly, slate, solar, litera
     css: styles.css
     toc: true
     toc-depth: 3

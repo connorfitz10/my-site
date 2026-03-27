@@ -1,5 +1,6 @@
 ---
 title: "Home"
+format: html
 ---
 
 Welcome to my site. Here you'll find math notes, animations, and write-ups.
