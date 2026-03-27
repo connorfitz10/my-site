@@ -5,6 +5,14 @@
   max-width: 1400px;
 }
 
+#quarto-content .page-columns {
+  grid-template-columns: 1fr 250px;
+}
+
+#quarto-margin-sidebar {
+  width: 250px;
+}
+
 /* Make math a touch larger */
 .math.display {
   font-size: 1.05em;

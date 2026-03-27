@@ -22,7 +22,8 @@ format:
   html:
     theme: cosmo          # try: flatly, darkly, slate, solar, litera
     css: styles.css
-    toc: false
+    toc: true
+    toc-depth: 3
     number-sections: false
     smooth-scroll: true
     highlight-style: github
