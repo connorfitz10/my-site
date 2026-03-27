@@ -20,5 +20,5 @@ Modern Physics Labratory (PHYS 20CL, Summer 2020, UCSB)
 Precalculus, Calculus I-IV, Calculus for Biology and Medicine II-III,  Introduction to Abstract Mathematics, Graduate Analysis II.
 
 ## Mentorship
-
+I mentored Claudio Manyari on special relativity. He presented a [poster](images/Electromagnetism and Special Relativity Claudio.pdf){target="_blank"} at the DRP conference.
 
