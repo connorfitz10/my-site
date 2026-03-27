@@ -11,6 +11,8 @@ website:
         text: Home
       - href: Teaching and mentoring.qmd
         text: Teaching
+      - href: Projects.qmd
+        text: Projects
       - href: notes.qmd
         text: Notes
       - href: manim-external.qmd

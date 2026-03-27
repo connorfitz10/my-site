@@ -4,21 +4,21 @@
     "href": "Teaching and mentoring.html",
     "title": "Teaching and Mentoring",
     "section": "",
-    "text": "Intermediate Analysis II (MAT 127B, Summer 2025, UC Davis) Vector Analysis (MAT 21D, Summer 2024, UC Davis) Vector Analysis (MAT 21D, Summer 2023, UC Davis) Calculus: Partial Derivatives and Series (MAT 21C, Summer 2022, UC Davis) Modern Physics Labratory (PHYS 20CL, Summer 2021, UCSB) Modern Physics Labratory (PHYS 20CL, Summer 2020, UCSB)"
+    "text": "Intermediate Analysis II (MAT 127B, Summer 2025, UC Davis)\nVector Analysis (MAT 21D, Summer 2024, UC Davis)\nVector Analysis (MAT 21D, Summer 2023, UC Davis)\nCalculus: Partial Derivatives and Series (MAT 21C, Summer 2022, UC Davis)\nModern Physics Labratory (PHYS 20CL, Summer 2021, UCSB)\nModern Physics Labratory (PHYS 20CL, Summer 2020, UCSB)"
   },
   {
     "objectID": "Teaching and mentoring.html#courses-taught",
     "href": "Teaching and mentoring.html#courses-taught",
     "title": "Teaching and Mentoring",
     "section": "",
-    "text": "Intermediate Analysis II (MAT 127B, Summer 2025, UC Davis) Vector Analysis (MAT 21D, Summer 2024, UC Davis) Vector Analysis (MAT 21D, Summer 2023, UC Davis) Calculus: Partial Derivatives and Series (MAT 21C, Summer 2022, UC Davis) Modern Physics Labratory (PHYS 20CL, Summer 2021, UCSB) Modern Physics Labratory (PHYS 20CL, Summer 2020, UCSB)"
+    "text": "Intermediate Analysis II (MAT 127B, Summer 2025, UC Davis)\nVector Analysis (MAT 21D, Summer 2024, UC Davis)\nVector Analysis (MAT 21D, Summer 2023, UC Davis)\nCalculus: Partial Derivatives and Series (MAT 21C, Summer 2022, UC Davis)\nModern Physics Labratory (PHYS 20CL, Summer 2021, UCSB)\nModern Physics Labratory (PHYS 20CL, Summer 2020, UCSB)"
   },
   {
     "objectID": "Teaching and mentoring.html#teaching-assistant",
     "href": "Teaching and mentoring.html#teaching-assistant",
     "title": "Teaching and Mentoring",
     "section": "Teaching Assistant",
-    "text": "Teaching Assistant\nPrecalculus, Calculus I-IV, Calculus for Biology and Medicine II-III, Introduction to Abstract Mathematics, Graduate Analysis II, Astronomy."
+    "text": "Teaching Assistant\nPrecalculus, Calculus I-IV, Calculus for Biology and Medicine II-III, Introduction to Abstract Mathematics, Graduate Analysis II."
   },
   {
     "objectID": "Teaching and mentoring.html#mentorship",
@@ -26,55 +26,6 @@
     "title": "Teaching and Mentoring",
     "section": "Mentorship",
     "text": "Mentorship"
-  },
-  {
-    "objectID": "notebooks/tnb_frame.html",
-    "href": "notebooks/tnb_frame.html",
-    "title": "TNB Frame Animation",
-    "section": "",
-    "text": "Edit r_sym in the cell below to define your parametric curve, then run all cells.\nThe animation will render and play inline.\n\nfrom manim import *\nimport sympy as s\nimport numpy as np\nfrom sympy import symbols, sqrt, lambdify, sin, cos, tan, exp, log, pi\n\nt = symbols('t')\n\n\n# ── Edit your curve here ──────────────────────────────────────────\nr_sym = s.Matrix([2*cos(3*t), 2*sin(t), 2*cos(2*t)])\n\n# t range for the animation\nt_start = 0\nt_end   = 2 * float(pi)\n# ─────────────────────────────────────────────────────────────────\n\n\n%%manim -qm TNBFrameclass TNBFrame(ThreeDScene):    def construct(self):        def TNB_get(func):            v_sym = func.diff(t)            speed_sym = sqrt(v_sym.dot(v_sym))            T_sym = v_sym / speed_sym            N_sym = T_sym.diff(t) / sqrt(T_sym.diff(t).dot(T_sym.diff(t)))            B_sym = T_sym.cross(N_sym)            T = lambdify(t, T_sym, 'numpy')            N = lambdify(t, N_sym, 'numpy')            B = lambdify(t, B_sym, 'numpy')            return T, N, B        axes = ThreeDAxes(x_length=12, y_length=10, z_length=8)        self.move_camera(phi=PI/3, theta=PI/4)        self.add(axes)        self.wait()        r_temp = lambdify(t, r_sym, 'numpy')        r_plot = lambda t: np.squeeze(r_temp(t))        C  = ParametricFunction(r_plot, t_range=[t_start, t_end], color=RED)        t0 = MathTex(r'\\vec{r}(t)=', color=RED)        T_l = MathTex(r'\\vec{T}', color=GREEN)        N_l = MathTex(r'\\vec{N}', color=BLUE)        B_l = MathTex(r'\\vec{B}', color=PURPLE)        TNB_l = VGroup(T_l, N_l, B_l)        self.add_fixed_in_frame_mobjects(t0.shift(3*UP + 3*RIGHT).scale(0.75))        self.play(Create(C), run_time=5)        self.wait()        tracker = ValueTracker(t_start)        T_f, N_f, B_f = TNB_get(r_sym)        T = lambda t: np.squeeze(T_f(t))        N = lambda t: np.squeeze(N_f(t))        B = lambda t: np.squeeze(B_f(t))        T_p = Vector(T(t_start), color=GREEN).shift(r_plot(t_start))        T_p.add_updater(lambda m: m.become(            Vector(T(tracker.get_value()), color=GREEN).shift(r_plot(tracker.get_value()))))        N_p = Vector(N(t_start), color=BLUE).shift(r_plot(t_start))        N_p.add_updater(lambda m: m.become(            Vector(N(tracker.get_value()), color=BLUE).shift(r_plot(tracker.get_value()))))        B_p = Vector(B(t_start), color=PURPLE).shift(r_plot(t_start))        B_p.add_updater(lambda m: m.become(            Vector(B(tracker.get_value()), color=PURPLE).shift(r_plot(tracker.get_value()))))        self.add(VGroup(T_p, N_p, B_p))        self.add_fixed_in_frame_mobjects(TNB_l.arrange(DOWN).next_to(t0, 2*RIGHT))        self.wait()        self.play(tracker.animate.set_value(t_end), run_time=10, rate_func=linear)        self.wait()"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Home",
-    "section": "",
-    "text": "Welcome to my site. Here you’ll find math notes, animations, and write-ups."
-  },
-  {
-    "objectID": "index.html#quick-example-inline-latex",
-    "href": "index.html#quick-example-inline-latex",
-    "title": "Home",
-    "section": "Quick example — inline LaTeX",
-    "text": "Quick example — inline LaTeX\nThe quadratic formula is \\(x = \\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}\\).\nEuler’s identity: \\(e^{i\\pi} + 1 = 0\\)"
-  },
-  {
-    "objectID": "index.html#display-math",
-    "href": "index.html#display-math",
-    "title": "Home",
-    "section": "Display math",
-    "text": "Display math\nMaxwell’s equations in differential form:\n\\[\n\\nabla \\cdot \\mathbf{E} = \\frac{\\rho}{\\varepsilon_0}\n\\]\n\\[\n\\nabla \\times \\mathbf{B} = \\mu_0 \\mathbf{J} + \\mu_0 \\varepsilon_0 \\frac{\\partial \\mathbf{E}}{\\partial t}\n\\]\n\\[\n\\nabla \\cdot \\mathbf{B}=0\n\\] \\[\n\\nabla \\times \\mathbf{E}=-\\frac{\\partial \\mathbf{B}}{dt}\n\\]"
-  },
-  {
-    "objectID": "index.html#embedding-a-gif",
-    "href": "index.html#embedding-a-gif",
-    "title": "Home",
-    "section": "Embedding a GIF",
-    "text": "Embedding a GIF\nDrop your Manim-rendered GIF into an images/ folder next to this file, then embed it like this:\n![Manim animation description](images/your-animation.gif)\nWith a caption and sizing:\n![Double pendulum simulation](images/pendulum.gif){fig-align=\"center\" width=\"70%\"}\nFor .mp4 videos use the Quarto video shortcode:"
-  },
-  {
-    "objectID": "manim-external.html",
-    "href": "manim-external.html",
-    "title": "Manim External",
-    "section": "",
-    "text": "This launches a full Jupyter environment in the cloud via Binder, where you can run the Manim TNB frame animation and edit the curve \\(\\vec{r}(t)\\) directly in a notebook cell.\n\n\n\n\n\n\nNote\n\n\n\nFirst launch takes 1–2 minutes while Binder builds the environment. Subsequent launches are faster.\n\n\n\n\n\nThe notebook opens automatically\nEdit r_sym and the t_start / t_end values in Cell 2\nClick Run All (or press Shift+Enter through each cell)\nThe animation renders and plays inline\n\n\n\n 🚀 Launch Manim Notebook \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCurve\nr_sym\n\n\n\n\nDefault (Lissajous)\ns.Matrix([2*cos(3*t), 2*sin(t), 2*cos(2*t)])\n\n\nHelix\ns.Matrix([cos(t), sin(t), 0.3*t])\n\n\nTrefoil knot\ns.Matrix([sin(t)+2*sin(2*t), cos(t)-2*cos(2*t), -sin(3*t)])\n\n\nTorus knot\ns.Matrix([(2+cos(3*t))*cos(2*t), (2+cos(3*t))*sin(2*t), sin(3*t)])"
-  },
-  {
-    "objectID": "manim-external.html#tnb-frame-full-manim-animation",
-    "href": "manim-external.html#tnb-frame-full-manim-animation",
-    "title": "Manim External",
-    "section": "",
-    "text": "This launches a full Jupyter environment in the cloud via Binder, where you can run the Manim TNB frame animation and edit the curve \\(\\vec{r}(t)\\) directly in a notebook cell.\n\n\n\n\n\n\nNote\n\n\n\nFirst launch takes 1–2 minutes while Binder builds the environment. Subsequent launches are faster.\n\n\n\n\n\nThe notebook opens automatically\nEdit r_sym and the t_start / t_end values in Cell 2\nClick Run All (or press Shift+Enter through each cell)\nThe animation renders and plays inline\n\n\n\n 🚀 Launch Manim Notebook \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCurve\nr_sym\n\n\n\n\nDefault (Lissajous)\ns.Matrix([2*cos(3*t), 2*sin(t), 2*cos(2*t)])\n\n\nHelix\ns.Matrix([cos(t), sin(t), 0.3*t])\n\n\nTrefoil knot\ns.Matrix([sin(t)+2*sin(2*t), cos(t)-2*cos(2*t), -sin(3*t)])\n\n\nTorus knot\ns.Matrix([(2+cos(3*t))*cos(2*t), (2+cos(3*t))*sin(2*t), sin(3*t)])"
   },
   {
     "objectID": "notes.html",
@@ -124,5 +75,61 @@
     "title": "Notes — Fourier Transform",
     "section": "Code block (optional)",
     "text": "Code block (optional)\nYou can also include executable Python code cells if you have Jupyter installed:\n\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nt = np.linspace(-3, 3, 1000)\nf = np.exp(-np.pi * t**2)\nxi = np.fft.fftfreq(len(t), d=t[1]-t[0])\nfhat = np.fft.fft(f) * (t[1]-t[0])\n\nplt.plot(np.fft.fftshift(xi), np.abs(np.fft.fftshift(fhat)))\nplt.xlabel(r\"$\\xi$\")\nplt.title(\"Magnitude spectrum\")\nplt.show()"
+  },
+  {
+    "objectID": "manim-external.html",
+    "href": "manim-external.html",
+    "title": "Manim External",
+    "section": "",
+    "text": "This launches a full Jupyter environment in the cloud via Binder, where you can run the Manim TNB frame animation and edit the curve \\(\\vec{r}(t)\\) directly in a notebook cell.\n\n\n\n\n\n\nNote\n\n\n\nFirst launch takes 1–2 minutes while Binder builds the environment. Subsequent launches are faster.\n\n\n\n\n\nThe notebook opens automatically\nEdit r_sym and the t_start / t_end values in Cell 2\nClick Run All (or press Shift+Enter through each cell)\nThe animation renders and plays inline\n\n\n\n 🚀 Launch Manim Notebook \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCurve\nr_sym\n\n\n\n\nDefault (Lissajous)\ns.Matrix([2*cos(3*t), 2*sin(t), 2*cos(2*t)])\n\n\nHelix\ns.Matrix([cos(t), sin(t), 0.3*t])\n\n\nTrefoil knot\ns.Matrix([sin(t)+2*sin(2*t), cos(t)-2*cos(2*t), -sin(3*t)])\n\n\nTorus knot\ns.Matrix([(2+cos(3*t))*cos(2*t), (2+cos(3*t))*sin(2*t), sin(3*t)])"
+  },
+  {
+    "objectID": "manim-external.html#tnb-frame-full-manim-animation",
+    "href": "manim-external.html#tnb-frame-full-manim-animation",
+    "title": "Manim External",
+    "section": "",
+    "text": "This launches a full Jupyter environment in the cloud via Binder, where you can run the Manim TNB frame animation and edit the curve \\(\\vec{r}(t)\\) directly in a notebook cell.\n\n\n\n\n\n\nNote\n\n\n\nFirst launch takes 1–2 minutes while Binder builds the environment. Subsequent launches are faster.\n\n\n\n\n\nThe notebook opens automatically\nEdit r_sym and the t_start / t_end values in Cell 2\nClick Run All (or press Shift+Enter through each cell)\nThe animation renders and plays inline\n\n\n\n 🚀 Launch Manim Notebook \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCurve\nr_sym\n\n\n\n\nDefault (Lissajous)\ns.Matrix([2*cos(3*t), 2*sin(t), 2*cos(2*t)])\n\n\nHelix\ns.Matrix([cos(t), sin(t), 0.3*t])\n\n\nTrefoil knot\ns.Matrix([sin(t)+2*sin(2*t), cos(t)-2*cos(2*t), -sin(3*t)])\n\n\nTorus knot\ns.Matrix([(2+cos(3*t))*cos(2*t), (2+cos(3*t))*sin(2*t), sin(3*t)])"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Home",
+    "section": "",
+    "text": "Welcome to my site. Here you’ll find math notes, animations, and write-ups."
+  },
+  {
+    "objectID": "index.html#quick-example-inline-latex",
+    "href": "index.html#quick-example-inline-latex",
+    "title": "Home",
+    "section": "Quick example — inline LaTeX",
+    "text": "Quick example — inline LaTeX\nThe quadratic formula is \\(x = \\dfrac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}\\).\nEuler’s identity: \\(e^{i\\pi} + 1 = 0\\)"
+  },
+  {
+    "objectID": "index.html#display-math",
+    "href": "index.html#display-math",
+    "title": "Home",
+    "section": "Display math",
+    "text": "Display math\nMaxwell’s equations in differential form:\n\\[\n\\nabla \\cdot \\mathbf{E} = \\frac{\\rho}{\\varepsilon_0}\n\\]\n\\[\n\\nabla \\times \\mathbf{B} = \\mu_0 \\mathbf{J} + \\mu_0 \\varepsilon_0 \\frac{\\partial \\mathbf{E}}{\\partial t}\n\\]\n\\[\n\\nabla \\cdot \\mathbf{B}=0\n\\] \\[\n\\nabla \\times \\mathbf{E}=-\\frac{\\partial \\mathbf{B}}{dt}\n\\]"
+  },
+  {
+    "objectID": "index.html#embedding-a-gif",
+    "href": "index.html#embedding-a-gif",
+    "title": "Home",
+    "section": "Embedding a GIF",
+    "text": "Embedding a GIF\nDrop your Manim-rendered GIF into an images/ folder next to this file, then embed it like this:\n![Manim animation description](images/your-animation.gif)\nWith a caption and sizing:\n![Double pendulum simulation](images/pendulum.gif){fig-align=\"center\" width=\"70%\"}\nFor .mp4 videos use the Quarto video shortcode:"
+  },
+  {
+    "objectID": "notebooks/tnb_frame.html",
+    "href": "notebooks/tnb_frame.html",
+    "title": "TNB Frame Animation",
+    "section": "",
+    "text": "Edit r_sym in the cell below to define your parametric curve, then run all cells.\nThe animation will render and play inline.\n\nfrom manim import *\nimport sympy as s\nimport numpy as np\nfrom sympy import symbols, sqrt, lambdify, sin, cos, tan, exp, log, pi\n\nt = symbols('t')\n\n\n# ── Edit your curve here ──────────────────────────────────────────\nr_sym = s.Matrix([2*cos(3*t), 2*sin(t), 2*cos(2*t)])\n\n# t range for the animation\nt_start = 0\nt_end   = 2 * float(pi)\n# ─────────────────────────────────────────────────────────────────\n\n\n%%manim -qm TNBFrameclass TNBFrame(ThreeDScene):    def construct(self):        def TNB_get(func):            v_sym = func.diff(t)            speed_sym = sqrt(v_sym.dot(v_sym))            T_sym = v_sym / speed_sym            N_sym = T_sym.diff(t) / sqrt(T_sym.diff(t).dot(T_sym.diff(t)))            B_sym = T_sym.cross(N_sym)            T = lambdify(t, T_sym, 'numpy')            N = lambdify(t, N_sym, 'numpy')            B = lambdify(t, B_sym, 'numpy')            return T, N, B        axes = ThreeDAxes(x_length=12, y_length=10, z_length=8)        self.move_camera(phi=PI/3, theta=PI/4)        self.add(axes)        self.wait()        r_temp = lambdify(t, r_sym, 'numpy')        r_plot = lambda t: np.squeeze(r_temp(t))        C  = ParametricFunction(r_plot, t_range=[t_start, t_end], color=RED)        t0 = MathTex(r'\\vec{r}(t)=', color=RED)        T_l = MathTex(r'\\vec{T}', color=GREEN)        N_l = MathTex(r'\\vec{N}', color=BLUE)        B_l = MathTex(r'\\vec{B}', color=PURPLE)        TNB_l = VGroup(T_l, N_l, B_l)        self.add_fixed_in_frame_mobjects(t0.shift(3*UP + 3*RIGHT).scale(0.75))        self.play(Create(C), run_time=5)        self.wait()        tracker = ValueTracker(t_start)        T_f, N_f, B_f = TNB_get(r_sym)        T = lambda t: np.squeeze(T_f(t))        N = lambda t: np.squeeze(N_f(t))        B = lambda t: np.squeeze(B_f(t))        T_p = Vector(T(t_start), color=GREEN).shift(r_plot(t_start))        T_p.add_updater(lambda m: m.become(            Vector(T(tracker.get_value()), color=GREEN).shift(r_plot(tracker.get_value()))))        N_p = Vector(N(t_start), color=BLUE).shift(r_plot(t_start))        N_p.add_updater(lambda m: m.become(            Vector(N(tracker.get_value()), color=BLUE).shift(r_plot(tracker.get_value()))))        B_p = Vector(B(t_start), color=PURPLE).shift(r_plot(t_start))        B_p.add_updater(lambda m: m.become(            Vector(B(tracker.get_value()), color=PURPLE).shift(r_plot(tracker.get_value()))))        self.add(VGroup(T_p, N_p, B_p))        self.add_fixed_in_frame_mobjects(TNB_l.arrange(DOWN).next_to(t0, 2*RIGHT))        self.wait()        self.play(tracker.animate.set_value(t_end), run_time=10, rate_func=linear)        self.wait()"
+  },
+  {
+    "objectID": "Projects.html",
+    "href": "Projects.html",
+    "title": "Projects",
+    "section": "",
+    "text": "Work in Progress…"
   }
 ]
