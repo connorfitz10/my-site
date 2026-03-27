@@ -194,12 +194,12 @@ function plotTNB() {
   }
 
   // Sample curve + all vector endpoints to compute fixed axis ranges
-  const nPts = 300;
+  const nPts = 1000;
   const ts   = Array.from({length: nPts}, (_, i) => _tA + (_tB - _tA) * i / (nPts - 1));
   const pts  = ts.map(t => _rFunc(t));
   const flat = pts.flat();
   const span = Math.max(...flat) - Math.min(...flat);
-  _scale = Math.max(0.2, span * 0.12);
+  _scale = span*0.25;
 
   // Include vector tip positions in range calculation
   const allX = [], allY = [], allZ = [];
