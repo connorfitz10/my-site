@@ -88,6 +88,8 @@ Use the slider to move the TNB frame along the curve.
   #tnb-slider-row { display:none; align-items:center; gap:.8rem; margin-bottom:.5rem; }
   #tnb-play-btn   { padding:.3rem .85rem; background:#198754; color:#fff;
                     border:none; border-radius:4px; cursor:pointer; font-size:.9rem; white-space:nowrap; }
+  #tnb-toggle-btn { padding:.3rem .85rem; background:#6c757d; color:#fff;
+                    border:none; border-radius:4px; cursor:pointer; font-size:.9rem; white-space:nowrap; }
   #tnb-t-slider   { flex:1; }
   #tnb-t-label    { font-family:monospace; min-width:4ch; }
   #tnb-plot       { width:100%; height:520px; }
@@ -111,6 +113,7 @@ Use the slider to move the TNB frame along the curve.
 <div id="tnb-err"></div>
 <div id="tnb-slider-row">
   <button id="tnb-play-btn" onclick="togglePlay()">&#9654; Play</button>
+  <button id="tnb-toggle-btn" onclick="toggleTNB()">Hide T,N,B</button>
   <input id="tnb-t-slider" type="range" min="0" max="1000" value="0"
          oninput="updateFrame(+this.value)">
   <span id="tnb-t-label">0.00</span>
@@ -246,8 +249,6 @@ function plotTNB() {
     arrowTrace(p0, T, _scale, 'green',  'T'),
     arrowTrace(p0, N, _scale, 'blue',   'N'),
     arrowTrace(p0, B, _scale, 'purple', 'B'),
-    { type:'scatter3d', mode:'markers', x:[p0[0]], y:[p0[1]], z:[p0[2]],
-      marker:{size:5, color:'orange'}, showlegend:false }
   ], _axisLayout);
 
   document.getElementById('tnb-slider-row').style.display = 'flex';
@@ -270,14 +271,23 @@ function updateFrame(val) {
   const Bend = p.map((x,i) => x + B[i]*_scale);
 
   Plotly.update('tnb-plot',
-    { x:[[p[0],Tend[0]],[p[0],Nend[0]],[p[0],Bend[0]],[p[0]]],
-      y:[[p[1],Tend[1]],[p[1],Nend[1]],[p[1],Bend[1]],[p[1]]],
-      z:[[p[2],Tend[2]],[p[2],Nend[2]],[p[2],Bend[2]],[p[2]]] },
-    {}, [1, 2, 3, 4]
+    { x:[[p[0],Tend[0]],[p[0],Nend[0]],[p[0],Bend[0]]],
+      y:[[p[1],Tend[1]],[p[1],Nend[1]],[p[1],Bend[1]]],
+      z:[[p[2],Tend[2]],[p[2],Nend[2]],[p[2],Bend[2]]] },
+    {}, [1, 2, 3]
   );
 }
 
 /* ── play / pause ── */
+/* ── toggle T,N,B visibility ── */
+let _tnbVisible = true;
+function toggleTNB() {
+  _tnbVisible = !_tnbVisible;
+  Plotly.restyle('tnb-plot', { visible: _tnbVisible }, [1, 2, 3]);
+  document.getElementById('tnb-toggle-btn').textContent =
+    _tnbVisible ? 'Hide T,N,B' : 'Show T,N,B';
+}
+
 const PLAY_DURATION = 10000; // 10 seconds
 
 function togglePlay() {
