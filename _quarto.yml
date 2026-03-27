@@ -25,7 +25,7 @@ format:
     toc: true
     toc-depth: 3
     grid:
-      body-width: 900px
+      body-width: 1000px
       margin-width: 200px
     number-sections: false
     smooth-scroll: true
