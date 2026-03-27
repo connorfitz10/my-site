@@ -9,10 +9,10 @@ website:
     left:
       - href: index.qmd
         text: Home
+      - href: Teaching and mentoring.qmd
+        text: Teaching
       - href: notes.qmd
         text: Notes
-      - href: about.qmd
-        text: About
       - href: manim-external.qmd
         text: Manim External
 

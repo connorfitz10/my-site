@@ -1,0 +1,19 @@
+---
+title: "Teaching and Mentoring"
+format: html
+---
+## Courses Taught
+
+Intermediate Analysis II (MAT 127B, Summer 2025, UC Davis)
+Vector Analysis (MAT 21D, Summer 2024, UC Davis)
+Vector Analysis (MAT 21D, Summer 2023, UC Davis)
+Calculus: Partial Derivatives and Series (MAT 21C, Summer 2022, UC Davis)
+Modern Physics Labratory (PHYS 20CL, Summer 2021, UCSB)
+Modern Physics Labratory (PHYS 20CL, Summer 2020, UCSB)
+
+## Teaching Assistant
+Precalculus, Calculus I-IV, Calculus for Biology and Medicine II-III,  Introduction to Abstract Mathematics, Graduate Analysis II, Astronomy.  
+
+## Mentorship
+
+
