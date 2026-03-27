@@ -227,7 +227,7 @@ function plotTNB() {
 
   _axisLayout = {
     margin: {l:0, r:0, t:20, b:0},
-    legend: {x:0, y:1, font: {size: 16}},
+    legend: {x:0, y:1, font: {size: 20}},
     scene: {
       aspectmode: 'cube',
       xaxis: { range: axisRange(allX) },
@@ -243,9 +243,9 @@ function plotTNB() {
     { type:'scatter3d', mode:'lines',
       x: pts.map(p=>p[0]), y: pts.map(p=>p[1]), z: pts.map(p=>p[2]),
       line:{color:'red', width:3}, name:'r(t)', showlegend:true },
-    arrowTrace(p0, T, _scale, 'green',  '➜ T'),
-    arrowTrace(p0, N, _scale, 'blue',   '➜ N'),
-    arrowTrace(p0, B, _scale, 'purple', '➜ B'),
+    arrowTrace(p0, T, _scale, 'green',  'T'),
+    arrowTrace(p0, N, _scale, 'blue',   'N'),
+    arrowTrace(p0, B, _scale, 'purple', 'B'),
     { type:'scatter3d', mode:'markers', x:[p0[0]], y:[p0[1]], z:[p0[2]],
       marker:{size:5, color:'orange'}, showlegend:false }
   ], _axisLayout);
