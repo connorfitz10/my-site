@@ -24,6 +24,9 @@ format:
     css: styles.css
     toc: true
     toc-depth: 3
+    grid:
+      body-width: 1100px
+      margin-width: 300px
     number-sections: false
     smooth-scroll: true
     highlight-style: github
