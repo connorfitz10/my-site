@@ -1,9 +1,5 @@
 /* Optional tweaks — delete anything you don't want */
 
-/* Full-width content area */
-.quarto-container {
-  max-width: 1400px;
-}
 
 /* Make math a touch larger */
 .math.display {
