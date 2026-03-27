@@ -216,7 +216,12 @@ function plotTNB() {
   _axisLayout = {
     margin: {l:0, r:0, t:20, b:0},
     legend: {x:0, y:1},
-    scene: { aspectmode: 'cube' }
+    scene: {
+      aspectmode: 'cube',
+      xaxis: { range: axisRange(allX) },
+      yaxis: { range: axisRange(allY) },
+      zaxis: { range: axisRange(allZ) }
+    }
   };
 
   const p0 = _rFunc(_tA);
