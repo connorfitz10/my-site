@@ -213,17 +213,10 @@ function plotTNB() {
     });
   });
 
-  // Lock axis ranges for the entire animation
   _axisLayout = {
-    uirevision: 'locked',
     margin: {l:0, r:0, t:20, b:0},
     legend: {x:0, y:1},
-    scene: {
-      aspectmode: 'cube',
-      xaxis: { range: axisRange(allX) },
-      yaxis: { range: axisRange(allY) },
-      zaxis: { range: axisRange(allZ) },
-    }
+    scene: { aspectmode: 'cube' }
   };
 
   const p0 = _rFunc(_tA);
@@ -263,10 +256,7 @@ function updateFrame(val) {
     { x:[[p[0],Tend[0]],[p[0],Nend[0]],[p[0],Bend[0]],[p[0]]],
       y:[[p[1],Tend[1]],[p[1],Nend[1]],[p[1],Bend[1]],[p[1]]],
       z:[[p[2],Tend[2]],[p[2],Nend[2]],[p[2],Bend[2]],[p[2]]] },
-    { 'scene.xaxis.range': _axisLayout.scene.xaxis.range,
-      'scene.yaxis.range': _axisLayout.scene.yaxis.range,
-      'scene.zaxis.range': _axisLayout.scene.zaxis.range },
-    [1, 2, 3, 4]
+    {}, [1, 2, 3, 4]
   );
 }
 
