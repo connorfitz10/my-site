@@ -1,0 +1,46 @@
+---
+title: "Manim External"
+---
+
+## TNB Frame — Full Manim Animation
+
+This launches a full Jupyter environment in the cloud via
+[Binder](https://mybinder.org), where you can run the Manim TNB frame
+animation and edit the curve $\vec{r}(t)$ directly in a notebook cell.
+
+::: {.callout-note}
+**First launch takes 1–2 minutes** while Binder builds the environment.
+Subsequent launches are faster.
+:::
+
+### What to do once it opens
+
+1. The notebook opens automatically
+2. Edit `r_sym` and the `t_start` / `t_end` values in **Cell 2**
+3. Click **Run All** (or press `Shift+Enter` through each cell)
+4. The animation renders and plays inline
+
+::: {=html}
+<div style="margin: 2rem 0; text-align: center;">
+  <a href="https://mybinder.org/v2/gh/connorfitz10/my-site/master?filepath=notebooks/tnb_frame.ipynb"
+     target="_blank"
+     style="display:inline-block; padding:.75rem 2rem; background:#f37626;
+            color:#fff; font-size:1.1rem; font-weight:600; border-radius:6px;
+            text-decoration:none; box-shadow:0 2px 6px rgba(0,0,0,.2);">
+    🚀 Launch Manim Notebook
+  </a>
+</div>
+
+<div style="text-align:center; margin-top:1rem;">
+  <img src="https://mybinder.org/badge_logo.svg" alt="Binder badge" />
+</div>
+:::
+
+### Example curves to try
+
+| Curve | `r_sym` |
+|-------|---------|
+| Default (Lissajous) | `s.Matrix([2*cos(3*t), 2*sin(t), 2*cos(2*t)])` |
+| Helix | `s.Matrix([cos(t), sin(t), 0.3*t])` |
+| Trefoil knot | `s.Matrix([sin(t)+2*sin(2*t), cos(t)-2*cos(2*t), -sin(3*t)])` |
+| Torus knot | `s.Matrix([(2+cos(3*t))*cos(2*t), (2+cos(3*t))*sin(2*t), sin(3*t)])` |

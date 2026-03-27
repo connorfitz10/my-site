@@ -13,6 +13,8 @@ website:
         text: Notes
       - href: about.qmd
         text: About
+      - href: manim-external.qmd
+        text: Manim External
   page-footer:
     center: "Built with [Quarto](https://quarto.org)"
 
