@@ -7,5 +7,11 @@
   },
   "notes.qmd": {
     "notes.html": "08bcdf4c"
+  },
+  "manim-external.qmd": {
+    "manim-external.html": "9e7e64b6"
+  },
+  "notebooks/tnb_frame.ipynb": {
+    "tnb_frame.html": "4334b561"
   }
 }
