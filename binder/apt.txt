@@ -2,4 +2,5 @@ texlive-latex-base
 texlive-latex-extra
 texlive-fonts-recommended
 dvipng
+dvisvgm
 ghostscript
