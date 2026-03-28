@@ -32,14 +32,14 @@
     "href": "notes.html",
     "title": "Notes — TNB Frame",
     "section": "",
-    "text": "Enter a parametric curve \\(\\vec{r}(t) = (x(t),\\, y(t),\\, z(t))\\) as three comma-separated expressions in \\(t\\), then click Plot. Use the slider to move the TNB frame along the curve.\n\n\n\n\n\nx(t) =  y(t) =  z(t) = \n\n\na =  b =  Plot\n\n\n\n\n\nShow T,N,B\n\n\n▶ Play  0.00"
+    "text": "Enter $(t)=x(t),y(t),z(t)$, \\(a\\leq t \\leq b\\) then click Plot. After showing the TNB frame, hitting Play will move the frame along the curve.\n\n\n\n\n\nx(t) =  y(t) =  z(t) = \n\n\na =  b =  Plot\n\n\n\n\n\nShow T,N,B\n\n\n▶ Play  0.00"
   },
   {
     "objectID": "notes.html#interactive-tnb-frame-animation",
     "href": "notes.html#interactive-tnb-frame-animation",
     "title": "Notes — TNB Frame",
     "section": "",
-    "text": "Enter a parametric curve \\(\\vec{r}(t) = (x(t),\\, y(t),\\, z(t))\\) as three comma-separated expressions in \\(t\\), then click Plot. Use the slider to move the TNB frame along the curve.\n\n\n\n\n\nx(t) =  y(t) =  z(t) = \n\n\na =  b =  Plot\n\n\n\n\n\nShow T,N,B\n\n\n▶ Play  0.00"
+    "text": "Enter $(t)=x(t),y(t),z(t)$, \\(a\\leq t \\leq b\\) then click Plot. After showing the TNB frame, hitting Play will move the frame along the curve.\n\n\n\n\n\nx(t) =  y(t) =  z(t) = \n\n\na =  b =  Plot\n\n\n\n\n\nShow T,N,B\n\n\n▶ Play  0.00"
   },
   {
     "objectID": "notes.html#code-block-optional",

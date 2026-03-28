@@ -6,9 +6,7 @@ title: "Notes — TNB Frame"
 
 ## Interactive TNB Frame Animation
 
-Enter a parametric curve $\vec{r}(t) = (x(t),\, y(t),\, z(t))$ as three
-comma-separated expressions in $t$, then click **Plot**.
-Use the slider to move the TNB frame along the curve.
+Enter $\vec{\mathbf{r}}(t)=\langle x(t),y(t),z(t)\rangle $, $a\leq t \leq b$ then click **Plot**. After showing the TNB frame, hitting **Play** will move the frame along the curve.
 
 ::: {=html}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/13.0.0/math.min.js"></script>

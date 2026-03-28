@@ -103,7 +103,7 @@ SCENE_TEMPLATE = textwrap.dedent("""\
             r_plot = lambda t: np.squeeze(r_temp(t))
 
             C = ParametricFunction(r_plot, t_range=[0, TAU], color=RED)
-            t0 = MathTex(r"\\vec{r}(t)=", color=RED)
+            r_l = MathTex(r"\\vec{r}(t)=", latex(r_sym), color=RED)
             T_l = MathTex(r"\\vec{T}", color=GREEN)
             N_l = MathTex(r"\\vec{N}", color=BLUE)
             B_l = MathTex(r"\\vec{B}", color=PURPLE)
