@@ -1,12 +1,15 @@
 ---
 title: "Notes — TNB Frame"
+format: html
 ---
 
 
 
 ## Interactive TNB Frame Animation
 
-Enter $\mathbf{r}(t)=\langle x(t),y(t),z(t)\rangle $, $a\leq t \leq b$ then click **Plot**. After showing the TNB frame, hitting **Play** will move the frame along the curve.
+Enter $\vec{\mathbf{r}}(t)= \langle x(t), y(t), z(t)\rangle$ for $a\leq t \leq b$ then click **Plot**.
+
+After showing the TNB frame, hitting **Play** will move the frame along the curve.
 
 ::: {=html}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/13.0.0/math.min.js"></script>
