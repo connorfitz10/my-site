@@ -190,7 +190,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> manim <span class="im">import</span> <span class="op">*</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sympy <span class="im">as</span> s</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy <span class="im">import</span> symbols, sqrt, lambdify, sin, cos, tan, exp, log, pi</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sympy <span class="im">import</span> symbols, sqrt, lambdify, sin, cos, tan, exp, log, pi,latex</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> symbols(<span class="st">'t'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -228,7 +228,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>        r_plot <span class="op">=</span> <span class="kw">lambda</span> t: np.squeeze(r_temp(t))</span>
 <span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>        C  <span class="op">=</span> ParametricFunction(r_plot, t_range<span class="op">=</span>[t_start, t_end], color<span class="op">=</span>RED)</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>        r_l <span class="op">=</span> MathTex(<span class="vs">r'</span><span class="ch">\v</span><span class="vs">ec{r}</span><span class="kw">(</span><span class="vs">t</span><span class="kw">)</span><span class="vs">='</span>, latex(r_sym) color<span class="op">=</span>RED)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>        r_l <span class="op">=</span> MathTex(<span class="vs">r'</span><span class="ch">\v</span><span class="vs">ec{r}</span><span class="kw">(</span><span class="vs">t</span><span class="kw">)</span><span class="vs">='</span>, latex(r_sym), color<span class="op">=</span>RED)</span>
 <span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>        T_l <span class="op">=</span> MathTex(<span class="vs">r'</span><span class="ch">\v</span><span class="vs">ec{T}'</span>, color<span class="op">=</span>GREEN)</span>
 <span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>        N_l <span class="op">=</span> MathTex(<span class="vs">r'</span><span class="ch">\v</span><span class="vs">ec{N}'</span>, color<span class="op">=</span>BLUE)</span>
 <span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>        B_l <span class="op">=</span> MathTex(<span class="vs">r'</span><span class="ch">\v</span><span class="vs">ec{B}'</span>, color<span class="op">=</span>PURPLE)</span>
@@ -255,7 +255,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>            Vector(B(tracker.get_value()), color<span class="op">=</span>PURPLE).shift(r_plot(tracker.get_value()))))</span>
 <span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.add(VGroup(T_p, N_p, B_p))</span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.add_fixed_in_frame_mobjects(TNB_l.arrange(DOWN).next_to(t0, <span class="dv">2</span><span class="op">*</span>RIGHT))</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.add_fixed_in_frame_mobjects(TNB_l.arrange(DOWN).next_to(r_l, <span class="dv">2</span><span class="op">*</span>RIGHT))</span>
 <span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.wait()</span>
 <span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.play(tracker.animate.set_value(t_end), run_time<span class="op">=</span><span class="dv">10</span>, rate_func<span class="op">=</span>linear)</span>
 <span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.wait()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
