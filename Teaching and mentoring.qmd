@@ -21,4 +21,3 @@ Precalculus, Calculus I-IV, Calculus for Biology and Medicine II-III,  Introduct
 
 ## Mentorship
 I have served as a mentor for 8 undergraduate reading projects on the following topics: [C* Algebras](images/Abhi%20Poster.pdf){target="_blank"}, [Special Relativity](images/Claudio%20Poster.pdf){target="_blank"}, [The Fourier Transform in Circuit Analysis](images/Selene%20Poster.pdf){target="_blank"}, [The Cosmological Constant](images/Hannah%20Poster.pdf){target="_blank"}, Measure theory and the Dirac Delta function, Differential Geometry, Quantum Computing, and Knot Theory.
-
